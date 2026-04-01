@@ -1,657 +1,567 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>♥ فخ الحب التفاعلي ♥ | هدية رقمية غير تقليدية</title>
-  <!-- Google Fonts & Confetti Library -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none; /* منع تحديد النصوص أثناء الضغط المتكرر */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>♥ فخ الحب التفاعلي ♥ | هدية رقمية</title>
+    <!-- Google Fonts + Canvas Confetti (موثوق) -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* منع تحديد النصوص أثناء الضغط المتكرر */
+        }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(145deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%);
-      font-family: 'Tajawal', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5rem;
-      margin: 0;
-      position: relative;
-    }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ff9a9e 0%, #fad0c4 100%);
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            margin: 0;
+        }
 
-    /* بطاقة اللعبة الرئيسية */
-    .game-card {
-      max-width: 650px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 65px;
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 10px rgba(255, 215, 215, 0.6);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(2px);
-      text-align: center;
-      padding: 1.8rem 1.8rem 2.2rem;
-    }
+        /* البطاقة الرئيسية */
+        .game-card {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 65px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 8px #ffe0e0;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem 1.5rem 2rem;
+            transition: all 0.3s;
+        }
 
-    /* منطقة الفخ (الأسئلة والأزرار) */
-    .trap-area {
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
+        /* منطقة السؤال والفخ */
+        .trap-area {
+            transition: 0.2s;
+        }
 
-    .cat-img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-      margin-bottom: 1.2rem;
-      border: 4px solid #ffb7b7;
-      background: #fff0e0;
-      transition: transform 0.2s;
-    }
-    .cat-img:hover {
-      transform: scale(1.02);
-    }
+        .cat-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            margin-bottom: 1.2rem;
+            border: 4px solid #ffb7b7;
+            background: #ffefef;
+        }
 
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: #c73e3e;
-      margin: 0.5rem 0 0.2rem;
-      text-shadow: 2px 2px 0 #ffe0e0;
-      letter-spacing: -0.5px;
-    }
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #c73e3e;
+            margin: 0.5rem 0 0.2rem;
+            text-shadow: 2px 2px 0 #ffe0e0;
+        }
 
-    .dynamic-message {
-      background: #fff0e7;
-      padding: 0.8rem 1rem;
-      border-radius: 60px;
-      display: inline-block;
-      margin: 0.8rem auto;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #b13e3e;
-      box-shadow: inset 0 0 2px #ffb7b7, 0 4px 8px rgba(0,0,0,0.05);
-      transition: all 0.2s;
-      min-width: 200px;
-    }
+        .dynamic-message {
+            background: #fff0e7;
+            padding: 0.8rem 1.5rem;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 0.8rem auto;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #b13e3e;
+            box-shadow: inset 0 0 2px #ffb7b7, 0 4px 8px rgba(0,0,0,0.05);
+            min-width: 220px;
+        }
 
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin: 1.5rem 0 1rem;
-      align-items: center;
-    }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0 1rem;
+            align-items: center;
+        }
 
-    .btn {
-      font-family: 'Tajawal', sans-serif;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      border-radius: 60px;
-      transition: all 0.25s ease-out;
-      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
-      padding: 0.8rem 1.8rem;
-      font-size: 1.3rem;
-      min-width: 110px;
-      letter-spacing: 0.5px;
-    }
+        .btn {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+            padding: 0.8rem 1.8rem;
+            font-size: 1.3rem;
+            min-width: 110px;
+        }
 
-    .btn-yes {
-      background-color: #4caf50;
-      color: white;
-      box-shadow: 0 6px 0 #2e6b2f;
-    }
-    .btn-yes:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #2e6b2f;
-    }
+        .btn-yes {
+            background-color: #4caf50;
+            color: white;
+            box-shadow: 0 6px 0 #2e6b2f;
+        }
+        .btn-yes:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #2e6b2f;
+        }
 
-    .btn-no {
-      background-color: #f44336;
-      color: white;
-      box-shadow: 0 6px 0 #9a2a1f;
-    }
-    .btn-no:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 #9a2a1f;
-    }
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+            box-shadow: 0 6px 0 #9a2a1f;
+        }
+        .btn-no:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #9a2a1f;
+        }
 
-    /* منطقة الهدايا والاحتفال (تظهر بعد الضغط على نعم) */
-    .gift-area {
-      display: none;
-      animation: fadeInUp 0.7s ease;
-    }
+        /* منطقة الهدايا (تظهر بعد النجاح) */
+        .gift-area {
+            display: none;
+            animation: fadeInUp 0.6s ease;
+        }
 
-    .celebration-message {
-      background: linear-gradient(135deg, #ffdde1, #ffb6c1);
-      border-radius: 50px;
-      padding: 1.2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
+        .celebration-message {
+            background: linear-gradient(135deg, #ffdde1, #ffb6c1);
+            border-radius: 50px;
+            padding: 1.2rem;
+            margin-bottom: 2rem;
+        }
 
-    .celebration-message h3 {
-      font-size: 1.9rem;
-      color: #a1222a;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+        .celebration-message h3 {
+            font-size: 1.8rem;
+            color: #a1222a;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
 
-    .gif-hearts {
-      font-size: 2.8rem;
-      letter-spacing: 8px;
-      animation: pulse 1s infinite;
-    }
+        .gif-hearts {
+            font-size: 2.5rem;
+            letter-spacing: 8px;
+            animation: pulse 1s infinite;
+        }
 
-    /* بطاقات الهدايا */
-    .gifts-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
+        /* بطاقات الهدايا */
+        .gifts-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
 
-    .gift-card {
-      background: white;
-      border-radius: 40px;
-      width: 180px;
-      padding: 1.2rem 0.8rem;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-      text-align: center;
-      border: 1px solid #ffcdcd;
-    }
-    .gift-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 28px rgba(0,0,0,0.15);
-    }
-    .gift-icon {
-      font-size: 3.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .gift-card h4 {
-      font-size: 1.4rem;
-      color: #b13e3e;
-      margin: 0.5rem 0;
-    }
-    .gift-card p {
-      font-size: 0.9rem;
-      color: #7a4a4a;
-      font-weight: 500;
-    }
+        .gift-card {
+            background: white;
+            border-radius: 40px;
+            width: 180px;
+            padding: 1.2rem 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid #ffcdcd;
+        }
+        .gift-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 28px rgba(0,0,0,0.15);
+        }
+        .gift-icon {
+            font-size: 3.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .gift-card h4 {
+            font-size: 1.4rem;
+            color: #b13e3e;
+            margin: 0.5rem 0;
+        }
+        .gift-card p {
+            font-size: 0.9rem;
+            color: #7a4a4a;
+            font-weight: 500;
+        }
 
-    /* مودال (نافذة منبثقة للهدايا) */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Tajawal', sans-serif;
-    }
-    .modal-content {
-      background: #fff9f5;
-      border-radius: 50px;
-      max-width: 500px;
-      width: 90%;
-      padding: 1.8rem;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.3);
-      animation: modalPop 0.3s;
-      border: 2px solid #ffaaa5;
-    }
-    .close-modal {
-      position: absolute;
-      top: 15px;
-      left: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #b13e3e;
-      background: #ffe0e0;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.1s;
-    }
-    .close-modal:hover {
-      background: #f5b7b7;
-    }
-    .modal-body {
-      margin-top: 1rem;
-    }
-    .modal-body iframe {
-      width: 100%;
-      height: 200px;
-      border-radius: 28px;
-      border: none;
-    }
-    .photo-grid {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 1rem 0;
-    }
-    .photo-grid img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 25px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border: 2px solid #ffb7b7;
-    }
-    .love-letter {
-      background: #fff0ea;
-      padding: 1.5rem;
-      border-radius: 35px;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #6b2e2e;
-      text-align: center;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    @keyframes modalPop {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.7; }
-      100% { transform: scale(1.1); opacity: 1; }
-    }
+        /* النافذة المنبثقة للهدايا */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff9f5;
+            border-radius: 50px;
+            max-width: 550px;
+            width: 90%;
+            padding: 1.8rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            animation: modalPop 0.3s;
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #b13e3e;
+            background: #ffe0e0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-modal:hover {
+            background: #f5b7b7;
+        }
+        .modal-body {
+            margin-top: 1rem;
+        }
+        .modal-body iframe {
+            width: 100%;
+            height: 220px;
+            border-radius: 28px;
+            border: none;
+        }
+        .photo-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .photo-grid img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px solid #ffb7b7;
+        }
+        .love-letter {
+            background: #fff0ea;
+            padding: 1.5rem;
+            border-radius: 35px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #6b2e2e;
+            text-align: center;
+            max-height: 400px;
+            overflow-y: auto;
+        }
 
-    footer {
-      font-size: 0.7rem;
-      margin-top: 1.2rem;
-      color: #c08484;
-      text-align: center;
-    }
-    button:focus {
-      outline: none;
-    }
-    @media (max-width: 550px) {
-      .game-card {
-        padding: 1.2rem;
-      }
-      .btn {
-        min-width: 90px;
-        padding: 0.6rem 1.2rem;
-        font-size: 1.1rem;
-      }
-      h2 {
-        font-size: 1.7rem;
-      }
-      .gift-card {
-        width: 150px;
-      }
-    }
-  </style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        footer {
+            font-size: 0.7rem;
+            margin-top: 1.2rem;
+            color: #c08484;
+        }
+        @media (max-width: 550px) {
+            .game-card { padding: 1.2rem; }
+            .btn { min-width: 90px; padding: 0.6rem 1.2rem; font-size: 1.1rem; }
+            h2 { font-size: 1.7rem; }
+            .gift-card { width: 150px; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="game-card">
-  <!-- منطقة الفخ (السؤال + الأزرار) -->
-  <div id="trapArea" class="trap-area">
-    <img class="cat-img" src="https://placekitten.com/300/300" alt="قطة لطيفة تحبك" 
-         srcset="https://placekitten.com/300/300 1x, https://placekitten.com/400/400 2x">
-    <h2>❤️ هل تحبيني؟ ❤️</h2>
-    <div id="dynamicMsg" class="dynamic-message">✨ اختاري بكل حب ✨</div>
-    <div class="buttons-container">
-      <button id="yesButton" class="btn btn-yes">نعم/ايوه</button>
-      <button id="noButton" class="btn btn-no">لا/لأ</button>
+    <!-- منطقة السؤال والفخ -->
+    <div id="trapArea" class="trap-area">
+        <img class="cat-img" id="catImg" src="https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_640.jpg" 
+             alt="قطة لطيفة" onerror="this.onerror=null; this.src='https://placekitten.com/300/300';">
+        <h2>❤️ هل تحبيني؟ ❤️</h2>
+        <div id="dynamicMsg" class="dynamic-message">✨ اختاري بكل حب ✨</div>
+        <div class="buttons-container">
+            <button id="yesButton" class="btn btn-yes">نعم/ايوه</button>
+            <button id="noButton" class="btn btn-no">لا/لأ</button>
+        </div>
+        <footer>💗 لا تستطيعي الهروب من الحب 💗</footer>
     </div>
-    <footer>💗 لا تستطيعي الهروب من الحب 💗</footer>
-  </div>
 
-  <!-- منطقة الهدايا والاحتفال (تظهر بعد الضغط على نعم) -->
-  <div id="giftArea" class="gift-area">
-    <div class="celebration-message">
-      <h3>
-        <span>🎉</span> كنت أعرف أنك ستقولين نعم! <span>🎉</span>
-      </h3>
-      <div class="gif-hearts">💖💕💗💘💝💞</div>
-      <p style="margin-top: 8px; font-weight:500;">♥ أنتِ أجمل هدية في حياتي ♥</p>
+    <!-- منطقة الهدايا (تظهر بعد النجاح) -->
+    <div id="giftArea" class="gift-area">
+        <div class="celebration-message">
+            <h3><span>🎉</span> كنت أعرف أنك ستقولين نعم! <span>🎉</span></h3>
+            <div class="gif-hearts">💖💕💗💘💝💞</div>
+            <p style="margin-top: 8px;">♥ أنتِ أجمل هدية في حياتي ♥</p>
+        </div>
+        <div class="gifts-wrapper">
+            <div class="gift-card" data-gift="memory">
+                <div class="gift-icon">📸🎁</div>
+                <h4>الذكريات</h4>
+                <p>ألبوم صورنا الجميل</p>
+            </div>
+            <div class="gift-card" data-gift="music">
+                <div class="gift-icon">🎵🎶</div>
+                <h4>الموسيقى</h4>
+                <p>أغنية حب تخصنا</p>
+            </div>
+            <div class="gift-card" data-gift="message">
+                <div class="gift-icon">💌✉️</div>
+                <h4>الرسالة</h4>
+                <p>كلمات من القلب</p>
+            </div>
+        </div>
+        <footer>✨ اضغط على أي هدية لتفاصيل خاصة ✨</footer>
     </div>
-    <div class="gifts-wrapper">
-      <!-- هدية الذكريات -->
-      <div class="gift-card" data-gift="memory">
-        <div class="gift-icon">📸🎁</div>
-        <h4>الذكريات</h4>
-        <p>ألبوم صورنا الجميل</p>
-      </div>
-      <!-- هدية الموسيقى -->
-      <div class="gift-card" data-gift="music">
-        <div class="gift-icon">🎵🎶</div>
-        <h4>الموسيقى</h4>
-        <p>أغنية حب تخصنا</p>
-      </div>
-      <!-- هدية الرسالة -->
-      <div class="gift-card" data-gift="message">
-        <div class="gift-icon">💌✉️</div>
-        <h4>الرسالة</h4>
-        <p>كلمات من القلب</p>
-      </div>
-    </div>
-    <footer style="margin-top: 25px;">✨ اضغط على أي هدية لتفاصيل خاصة ✨</footer>
-  </div>
 </div>
 
-<!-- المودال لعرض محتوى الهدايا -->
+<!-- المودال لعرض الهدايا -->
 <div id="giftModal" class="modal">
-  <div class="modal-content">
-    <span class="close-modal">&times;</span>
-    <div id="modalBody" class="modal-body">
-      <!-- المحتوى الديناميكي حسب الهدية -->
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="modalBody" class="modal-body"></div>
     </div>
-  </div>
 </div>
 
 <script>
-  // --------------------- 1. عناصر DOM ---------------------
-  const trapDiv = document.getElementById('trapArea');
-  const giftDiv = document.getElementById('giftArea');
-  const yesBtn = document.getElementById('yesButton');
-  const noBtn = document.getElementById('noButton');
-  const dynamicMsgSpan = document.getElementById('dynamicMsg');
+    // ---------- عناصر الصفحة ----------
+    const trapDiv = document.getElementById('trapArea');
+    const giftDiv = document.getElementById('giftArea');
+    const yesBtn = document.getElementById('yesButton');
+    const noBtn = document.getElementById('noButton');
+    const dynamicMsg = document.getElementById('dynamicMsg');
 
-  // متغيرات المطاردة
-  let noClickCount = 0;
-  const MAX_NO_CLICKS = 5;   // بعد 5 ضغطات يختفي زر "لا" تماماً
-  // قائمة الرسائل الكوميدية مع كل ضغطة على "لا"
-  const funnyMessages = [
-    "😾 بجد؟؟ فكري تاني!",
-    "🤔 مستحيل تقولي لأ! 🌸",
-    "🙅‍♀️ ما ينفعش تدوسي لأ 🙅‍♂️",
-    "💢 آخر فرصة قبل ما يختفي الزر! 💢",
-    "😂 خلاص يا حبيبتي، مفيش زر لأ دلوقتي 😂"
-  ];
-  
-  // الأحجام الأساسية (بالنسبة للـ rem لتوسيع وتصغير الأزرار)
-  let yesFontSize = 1.3;   // rem
-  let noFontSize = 1.3;    // rem
-  let yesPaddingV = 0.8;    // rem عمودي
-  let yesPaddingH = 1.8;    // rem أفقي
-  let noPaddingV = 0.8;
-  let noPaddingH = 1.8;
-  
-  // تحديث حجم الأزرار بشكل مرئي
-  function updateButtonsSize() {
-    yesBtn.style.fontSize = `${yesFontSize}rem`;
-    yesBtn.style.padding = `${yesPaddingV}rem ${yesPaddingH}rem`;
-    noBtn.style.fontSize = `${noFontSize}rem`;
-    noBtn.style.padding = `${noPaddingV}rem ${noPaddingH}rem`;
-    
-    // منع انكماش مبالغ فيه: إذا قل حجم الخط عن 0.2rem نخفي الزر
-    if (noFontSize <= 0.2 || noClickCount >= MAX_NO_CLICKS) {
-      noBtn.style.display = 'none';
-    } else {
-      noBtn.style.display = 'inline-block';
+    let noClicks = 0;
+    const MAX_CLICKS = 6;          // بعد 6 ضغطات يختفي زر "لا" نهائياً
+    const funnyMessages = [
+        "😾 بجد؟؟ فكري تاني!",
+        "🤔 مستحيل تقولي لأ! 🌸",
+        "🙅‍♀️ ما ينفعش تدوسي لأ 🙅‍♂️",
+        "💢 آخر فرصة قبل ما يختفي الزر! 💢",
+        "😂 خلاص يا حبيبتي، مفيش زر لأ دلوقتي 😂",
+        "💘 اضغطي نعم وريحينا 💘"
+    ];
+
+    // التحكم في حجم الأزرار
+    let yesFontSize = 1.3;      // rem
+    let yesPaddingV = 0.8;
+    let yesPaddingH = 1.8;
+    let noFontSize = 1.3;
+    let noPaddingV = 0.8;
+    let noPaddingH = 1.8;
+
+    function updateButtonsStyle() {
+        yesBtn.style.fontSize = `${yesFontSize}rem`;
+        yesBtn.style.padding = `${yesPaddingV}rem ${yesPaddingH}rem`;
+        noBtn.style.fontSize = `${noFontSize}rem`;
+        noBtn.style.padding = `${noPaddingV}rem ${noPaddingH}rem`;
+
+        if (noFontSize <= 0.15 || noClicks >= MAX_CLICKS) {
+            noBtn.style.display = 'none';
+        } else {
+            noBtn.style.display = 'inline-block';
+        }
+        // الحد الأقصى لحجم زر نعم
+        if (yesFontSize > 2.9) yesFontSize = 2.9;
+        if (yesPaddingV > 1.5) yesPaddingV = 1.5;
     }
-    // لا نسمح للزر "نعم" بأن يصبح ضخماً جداً (حد أقصى 3rem)
-    if (yesFontSize > 2.8) yesFontSize = 2.8;
-    if (yesPaddingV > 1.5) yesPaddingV = 1.5;
-  }
-  
-  // إعادة ضبط أحجام الأزرار بعد أول ضغطة؟ لا نحتاج، لكن نخزن التغيرات
-  function enlargeYesButton() {
-    yesFontSize = Math.min(yesFontSize + 0.2, 2.8);
-    yesPaddingV = Math.min(yesPaddingV + 0.1, 1.5);
-    yesPaddingH = Math.min(yesPaddingH + 0.2, 2.5);
-    updateButtonsSize();
-  }
-  
-  function shrinkNoButton() {
-    if (noClickCount >= MAX_NO_CLICKS) {
-      noBtn.style.display = 'none';
-      return;
+
+    function enlargeYes() {
+        yesFontSize = Math.min(yesFontSize + 0.2, 2.9);
+        yesPaddingV = Math.min(yesPaddingV + 0.1, 1.5);
+        yesPaddingH = Math.min(yesPaddingH + 0.2, 2.6);
+        updateButtonsStyle();
     }
-    noFontSize = Math.max(noFontSize - 0.22, 0.1);
-    noPaddingV = Math.max(noPaddingV - 0.1, 0.1);
-    noPaddingH = Math.max(noPaddingH - 0.2, 0.2);
-    updateButtonsSize();
-  }
-  
-  // تغيير الرسالة العلوية حسب عدد الضغطات
-  function updateFunnyMessage() {
-    if (noClickCount === 0) {
-      dynamicMsgSpan.innerHTML = "✨ اختاري بكل حب ✨";
-      return;
+
+    function shrinkNo() {
+        if (noClicks >= MAX_CLICKS) {
+            noBtn.style.display = 'none';
+            return;
+        }
+        noFontSize = Math.max(noFontSize - 0.22, 0.08);
+        noPaddingV = Math.max(noPaddingV - 0.12, 0.05);
+        noPaddingH = Math.max(noPaddingH - 0.24, 0.1);
+        updateButtonsStyle();
     }
-    const msgIndex = Math.min(noClickCount - 1, funnyMessages.length - 1);
-    if (msgIndex >= 0) {
-      dynamicMsgSpan.innerHTML = funnyMessages[msgIndex];
+
+    function updateMessage() {
+        if (noClicks === 0) {
+            dynamicMsg.innerHTML = "✨ اختاري بكل حب ✨";
+            return;
+        }
+        const idx = Math.min(noClicks - 1, funnyMessages.length - 1);
+        dynamicMsg.innerHTML = funnyMessages[idx];
+        if (noClicks >= MAX_CLICKS) {
+            dynamicMsg.innerHTML = "💞 الحب ماينفعش يترفض .. اضغطي نعم ياعمري 💞";
+        }
     }
-    // إذا اختفى الزر "لا" تماماً نضيف رسالة أخيرة
-    if (noClickCount >= MAX_NO_CLICKS) {
-      dynamicMsgSpan.innerHTML = "💘 مبقاش في زر لأ .. اضغطي نعم وخلصينا 💘";
+
+    // حدث الضغط على "لا"
+    function onNoClick() {
+        if (noClicks >= MAX_CLICKS) return;
+        noClicks++;
+        enlargeYes();
+        shrinkNo();
+        updateMessage();
+
+        // رشة كونفيتي صغيرة مع كل رفض
+        canvasConfetti({ particleCount: 25, spread: 50, origin: { y: 0.7 }, colors: ['#ff6b6b', '#ffb347'] });
     }
-  }
-  
-  // حدث الضغط على زر "لا" (المطاردة)
-  function onNoClick() {
-    if (noClickCount >= MAX_NO_CLICKS) return; // الزر اختفى خلاص
-    
-    noClickCount++;
-    // تكبير زر نعم
-    enlargeYesButton();
-    // تصغير زر لا
-    shrinkNoButton();
-    // تحديث الرسالة الفكاهية
-    updateFunnyMessage();
-    
-    // رشة كونفيتي صغيرة مع كل لا (تأثير مرح)
-    canvasConfetti({
-      particleCount: 20,
-      spread: 45,
-      origin: { y: 0.7 },
-      colors: ['#ff6b6b', '#ffb347', '#ff4d6d']
-    });
-    
-    // لو وصلنا للحد الأقصى نخفي الزر نهائياً ونمنع أي ضغطات مستقبلية
-    if (noClickCount >= MAX_NO_CLICKS) {
-      noBtn.style.display = 'none';
-      dynamicMsgSpan.innerHTML = "💞 الحب ماينفعش يترفض .. اضغطي نعم ياعمري 💞";
+
+    // ---------- الاحتفال وظهور الهدايا ----------
+    let giftsShown = false;
+
+    function showGifts() {
+        if (giftsShown) return;
+        giftsShown = true;
+
+        // كونفيتي احتفالي كبير
+        canvasConfetti({ particleCount: 220, spread: 110, origin: { y: 0.6 }, startVelocity: 22 });
+        canvasConfetti({ particleCount: 100, spread: 80, origin: { y: 0.3, x: 0.2 } });
+        canvasConfetti({ particleCount: 100, spread: 80, origin: { y: 0.3, x: 0.8 } });
+
+        // إخفاء منطقة الفخ وإظهار الهدايا
+        trapDiv.style.display = 'none';
+        giftDiv.style.display = 'block';
+
+        // إضافة قلوب متحركة مؤقتة
+        const heartsDiv = document.createElement('div');
+        heartsDiv.innerHTML = '❤️🧡💛💚💙💜❤️‍🔥';
+        heartsDiv.style.position = 'fixed';
+        heartsDiv.style.bottom = '20px';
+        heartsDiv.style.left = '0';
+        heartsDiv.style.width = '100%';
+        heartsDiv.style.textAlign = 'center';
+        heartsDiv.style.fontSize = '2rem';
+        heartsDiv.style.pointerEvents = 'none';
+        heartsDiv.style.zIndex = '999';
+        heartsDiv.style.animation = 'pulse 0.8s infinite alternate';
+        document.body.appendChild(heartsDiv);
+        setTimeout(() => heartsDiv.remove(), 2800);
     }
-  }
-  
-  // --------------------- 2. الاحتفال والانتقال للهدايا ---------------------
-  let giftRevealed = false;
-  
-  function showGiftsAndCelebration() {
-    if (giftRevealed) return;
-    giftRevealed = true;
-    
-    // 1. تأثير كونفيتي كبير
-    canvasConfetti({
-      particleCount: 200,
-      spread: 100,
-      origin: { y: 0.6 },
-      startVelocity: 20,
-      colors: ['#ff4d6d', '#ffb3c6', '#ffc8dd', '#ff99c8']
-    });
-    canvasConfetti({
-      particleCount: 80,
-      spread: 120,
-      origin: { y: 0.3, x: 0.2 },
-      startVelocity: 25,
-    });
-    canvasConfetti({
-      particleCount: 80,
-      spread: 120,
-      origin: { y: 0.3, x: 0.8 },
-    });
-    
-    // 2. إخفاء منطقة الفخ وإظهار منطقة الهدايا
-    trapDiv.style.display = 'none';
-    giftDiv.style.display = 'block';
-    
-    // 3. تأثير قلوب متحركة إضافية (عن طريق إضافة عناصر مؤقتة)
-    const heartContainer = document.createElement('div');
-    heartContainer.style.position = 'fixed';
-    heartContainer.style.bottom = '20px';
-    heartContainer.style.left = '0';
-    heartContainer.style.width = '100%';
-    heartContainer.style.pointerEvents = 'none';
-    heartContainer.style.textAlign = 'center';
-    heartContainer.style.fontSize = '2rem';
-    heartContainer.style.zIndex = '999';
-    heartContainer.innerHTML = '❤️🧡💛💚💙💜🖤🤍🤎❤️‍🔥';
-    heartContainer.style.animation = 'pulse 0.8s infinite alternate';
-    document.body.appendChild(heartContainer);
-    setTimeout(() => {
-      heartContainer.remove();
-    }, 3000);
-  }
-  
-  // حدث الضغط على زر "نعم" - ينقل للمرحلة النهائية
-  function onYesClick() {
-    if (giftRevealed) return;
-    showGiftsAndCelebration();
-  }
-  
-  // --------------------- 3. الهدايا الرقمية (مودال) ---------------------
-  const modal = document.getElementById('giftModal');
-  const modalBody = document.getElementById('modalBody');
-  const closeModalBtn = document.querySelector('.close-modal');
-  
-  // محتوى الذكريات (ألبوم صور قابل للتعديل - نضع صوراً رمزية ويمكن المستخدم تعديل الروابط)
-  function renderMemoryGift() {
-    return `
-      <div style="text-align: center;">
-        <h3 style="color:#b13e3e; margin-bottom: 1rem;">📸 ألبوم ذكرياتنا 📸</h3>
-        <div class="photo-grid">
-          <!-- يمكن استبدال هذه الصور بروابط صور حقيقية تجمعكما -->
-          <img src="https://picsum.photos/id/20/200/200" alt="ذكرى جميلة">
-          <img src="https://picsum.photos/id/169/200/200" alt="لحظة حب">
-          <img src="https://picsum.photos/id/144/200/200" alt="ضحكة معاً">
-        </div>
-        <p style="margin-top: 12px; background: #ffe6e6; padding: 8px; border-radius: 40px;">
-          💖 <strong>استبدل الصور بروابط لحظاتكم الخاصة 💖</strong><br>
-          (يمكنك تعديل روابط الصور في ملف HTML عبر قسم "الذكريات")
-        </p>
-        <button id="closeMemBtn" style="margin-top: 15px; background:#ffaaa5; border:none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor:pointer;">إغلاق</button>
-      </div>
-    `;
-  }
-  
-  // محتوى الموسيقى (فيديو يوتيوب رومانسي قابل للتعديل)
-  function renderMusicGift() {
-    // رابط أغنية جميلة (Fairuz أو أغنية حب مشهورة) يمكن للمستخدم تغييره
-    const songUrl = "https://www.youtube.com/embed/2Vv-BfRq3F4?autoplay=0&controls=1";  // أغنية "بحبك وحشتيني" كنموذج
-    return `
-      <div>
-        <h3 style="color:#b13e3e;">🎵 أغنية تخصنا 🎵</h3>
-        <iframe src="${songUrl}" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <p style="margin: 12px 0;">💞 غير الرابط إلى الأغنية التي تذكرك بها 💞</p>
-        <button id="closeMusicBtn" style="background:#ffaaa5; border:none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor:pointer;">إغلاق</button>
-      </div>
-    `;
-  }
-  
-  // محتوى الرسالة (نص حب طويل ومؤثر قابل للتعديل)
-  function renderMessageGift() {
-    return `
-      <div>
-        <h3 style="color:#b13e3e;">💌 رسالة من القلب 💌</h3>
-        <div class="love-letter">
-          <p>✨ إلى أغلى إنسانة في حياتي، ✨</p>
-          <p>منذ اللحظة الأولى التي رأيتك فيها وأنا أعلم أن قلبي سينبض لكِ وحدك. أنتِ مصدر سعادتي وكل لحظة معك تصنع معجزة. أردت بهذه الهدية الرقمية أن أسرق منكِ ضحكة وأن أقول لكِ بطريقة غير تقليدية: أنا أحبكِ بجنون. 💖</p>
-          <p>كل مرة أتخيل فيها مستقبلنا أراه مليئاً بالحب والدفء. شكراً لأنكِ أنتِ أنتِ. 💕</p>
-          <p style="margin-top: 10px;"><strong>~ أحبكِ إلى الأبد ~</strong></p>
-          <p style="font-size: 0.85rem;">(يمكنك تخصيص هذه الرسالة كما تشاء في الكود)</p>
-        </div>
-        <button id="closeMsgBtn" style="margin-top: 15px; background:#ffaaa5; border:none; padding: 8px 20px; border-radius: 40px; font-weight: bold; cursor:pointer;">إغلاق</button>
-      </div>
-    `;
-  }
-  
-  // فتح المودال حسب نوع الهدية
-  function openModal(giftType) {
-    if (giftType === 'memory') {
-      modalBody.innerHTML = renderMemoryGift();
-    } else if (giftType === 'music') {
-      modalBody.innerHTML = renderMusicGift();
-    } else if (giftType === 'message') {
-      modalBody.innerHTML = renderMessageGift();
+
+    function onYesClick() {
+        if (giftsShown) return;
+        showGifts();
     }
-    modal.style.display = 'flex';
-    
-    // إضافة مستمع للأزرار المغلقة التي تظهر ديناميكياً
-    setTimeout(() => {
-      const closeMem = document.getElementById('closeMemBtn');
-      const closeMusic = document.getElementById('closeMusicBtn');
-      const closeMsg = document.getElementById('closeMsgBtn');
-      if (closeMem) closeMem.addEventListener('click', closeModal);
-      if (closeMusic) closeMusic.addEventListener('click', closeModal);
-      if (closeMsg) closeMsg.addEventListener('click', closeModal);
-    }, 10);
-  }
-  
-  function closeModal() {
-    modal.style.display = 'none';
-    modalBody.innerHTML = '';
-  }
-  
-  // إضافة مستمعين لبطاقات الهدايا (تظهر فقط بعد المرحلة الثالثة)
-  function bindGiftCards() {
-    const memoryCard = document.querySelector('.gift-card[data-gift="memory"]');
-    const musicCard = document.querySelector('.gift-card[data-gift="music"]');
-    const messageCard = document.querySelector('.gift-card[data-gift="message"]');
-    if (memoryCard) memoryCard.addEventListener('click', () => openModal('memory'));
-    if (musicCard) musicCard.addEventListener('click', () => openModal('music'));
-    if (messageCard) messageCard.addEventListener('click', () => openModal('message'));
-  }
-  
-  // --------------------- 4. ربط الأحداث النهائية ---------------------
-  yesBtn.addEventListener('click', onYesClick);
-  noBtn.addEventListener('click', onNoClick);
-  closeModalBtn.addEventListener('click', closeModal);
-  // عند الضغط خارج المودال
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-  
-  // بداية: التأكد من أن منطقة الهدايا مخفية
-  giftDiv.style.display = 'none';
-  trapDiv.style.display = 'block';
-  // نضبط الأحجام الأولية
-  updateButtonsSize();
-  // ربط بطاقات الهدايا (ل
+
+    // ---------- الهدايا والمودال ----------
+    const modal = document.getElementById('giftModal');
+    const modalBody = document.getElementById('modalBody');
+    const closeModalBtn = document.querySelector('.close-modal');
+
+    function closeModal() {
+        modal.style.display = 'none';
+        modalBody.innerHTML = '';
+    }
+
+    // محتوى الهدايا (قابل للتعديل بسهولة)
+    function getMemoryContent() {
+        return `
+            <div>
+                <h3 style="color:#b13e3e;">📸 ألبوم ذكرياتنا</h3>
+                <div class="photo-grid">
+                    <!-- استبدل هذه الصور بروابط صوركما الحقيقية -->
+                    <img src="https://picsum.photos/id/20/200/200" alt="ذكرى 1">
+                    <img src="https://picsum.photos/id/169/200/200" alt="ذكرى 2">
+                    <img src="https://picsum.photos/id/144/200/200" alt="ذكرى 3">
+                </div>
+                <p style="background:#ffe6e6; padding:8px; border-radius:40px;">💖 غيّر الروابط لصوركما الحقيقية 💖</p>
+                <button id="closeGiftBtn" style="margin-top:15px; background:#ffaaa5; border:none; padding:8px 20px; border-radius:40px; font-weight:bold; cursor:pointer;">إغلاق</button>
+            </div>
+        `;
+    }
+
+    function getMusicContent() {
+        // رابط أغنية رومانسية (Fairuz) يمكنك تغييره
+        const songLink = "https://www.youtube.com/embed/2Vv-BfRq3F4?autoplay=0&controls=1";
+        return `
+            <div>
+                <h3 style="color:#b13e3e;">🎵 أغنية تخصنا</h3>
+                <iframe src="${songLink}" allowfullscreen></iframe>
+                <p style="margin:12px 0;">💞 غيّر الرابط إلى الأغنية التي تذكرك بها 💞</p>
+                <button id="closeGiftBtn" style="background:#ffaaa5; border:none; padding:8px 20px; border-radius:40px; font-weight:bold; cursor:pointer;">إغلاق</button>
+            </div>
+        `;
+    }
+
+    function getMessageContent() {
+        return `
+            <div>
+                <h3 style="color:#b13e3e;">💌 رسالة من القلب</h3>
+                <div class="love-letter">
+                    <p>✨ إلى أغلى إنسانة في حياتي، ✨</p>
+                    <p>منذ اللحظة الأولى وأنا أعلم أن قلبي لكِ فقط. بهذه اللعبة السخيفة أردت أن أقول لكِ بطريقة مختلفة: أنتِ عالمي وسعادتي. كل لحظة معك تزيدني حباً. 💖</p>
+                    <p>أتمنى أن تعجبك هذه الهدية الرقمية، لأنك تستحقين كل الابتسامات. أحبكِ جداً جداً.</p>
+                    <p style="margin-top:10px;"><strong>~ إلى الأبد ~</strong></p>
+                </div>
+                <button id="closeGiftBtn" style="margin-top:15px; background:#ffaaa5; border:none; padding:8px 20px; border-radius:40px; font-weight:bold; cursor:pointer;">إغلاق</button>
+            </div>
+        `;
+    }
+
+    function openGift(type) {
+        if (type === 'memory') modalBody.innerHTML = getMemoryContent();
+        else if (type === 'music') modalBody.innerHTML = getMusicContent();
+        else if (type === 'message') modalBody.innerHTML = getMessageContent();
+        modal.style.display = 'flex';
+
+        // ربط زر الإغلاق الذي يظهر ديناميكياً
+        setTimeout(() => {
+            const closeBtn = document.getElementById('closeGiftBtn');
+            if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        }, 10);
+    }
+
+    // ربط بطاقات الهدايا (حتى لو كانت مخفية في البداية)
+    function bindGiftCards() {
+        const memoryCard = document.querySelector('.gift-card[data-gift="memory"]');
+        const musicCard = document.querySelector('.gift-card[data-gift="music"]');
+        const messageCard = document.querySelector('.gift-card[data-gift="message"]');
+        if (memoryCard) memoryCard.addEventListener('click', () => openGift('memory'));
+        if (musicCard) musicCard.addEventListener('click', () => openGift('music'));
+        if (messageCard) messageCard.addEventListener('click', () => openGift('message'));
+    }
+
+    // ---------- تهيئة الأحداث ----------
+    yesBtn.addEventListener('click', onYesClick);
+    noBtn.addEventListener('click', onNoClick);
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+    // ضبط الأحجام الأولية
+    updateButtonsStyle();
+    bindGiftCards();
+
+    // تحسين تجربة الصورة: لو فشلت تظهر صورة بديلة
+    const catImg = document.getElementById('catImg');
+    if (catImg) {
+        catImg.onerror = () => { catImg.src = 'https://placekitten.com/300/300'; };
+    }
+
+    console.log('♥ فخ الحب يعمل بنجاح ♥');
+</script>
+</body>
+</html>
